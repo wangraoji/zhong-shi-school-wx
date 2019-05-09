@@ -7,6 +7,8 @@ import element from './element';
 import 'element-ui/lib/theme-chalk/index.css';
 const locale = require('element-ui/lib/locale/lang/zh-CN');
 Vue.use(element, { locale: locale.default, size: 'mini' })
+// 引入scss
+import "@/styles/index.scss";
 
 // 引入 lodash
 import _ from "lodash";
