@@ -1,0 +1,1 @@
+export { default as myCol } from './myCol/index.vue'
