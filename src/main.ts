@@ -14,8 +14,8 @@ import "@/styles/index.scss";
 import _ from "lodash";
 
 // 引入全局组件
-import { myCol } from '@/components';
-Vue.component('myCol', myCol)
+import { myRow } from '@/components';
+Vue.component('myRow', myRow)
 
 Vue.config.productionTip = false
 Vue.prototype.log = (v1: any, v2?: any) => {

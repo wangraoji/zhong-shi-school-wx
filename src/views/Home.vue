@@ -1,21 +1,33 @@
 <template>
-  <div class="home">
-    <el-row class="main">
+  <div class="home h100">
+    <my-row class="main">
       <div>beg</div>
-      <div class="aaa">nnn</div>
+      <el-button>测试</el-button>
+      <div class="aaa" id="aaa">nnn</div>
       <div>end</div>
-    </el-row>
-    <el-row class="footer-tab w100">111</el-row>
+    </my-row>
+    <my-row class="footer-tab">
+      <footer-tab/>
+    </my-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component
-export default class Home extends Vue {}
+import { footerTab } from "@/components";
+@Component({
+  components: {
+    footerTab
+  }
+})
+export default class Home extends Vue {
+
+}
 </script>
 <style lang="scss" scoped>
+$bdc: 1px solid #ebeef5;
 .home {
+  // background: #F5F5F5;
   .main {
     margin-bottom: 30px;
     .aaa {
@@ -23,10 +35,21 @@ export default class Home extends Vue {}
     }
   }
   .footer-tab {
-    height: 30px;
     position: fixed;
     bottom: 0;
-    background: red;
+    background: #fff;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    z-index: 2;
+    border-top: $bdc;
+    // .f-t-c {
+    //   border-right: $bdc;
+    //   border-radius: 5px;
+    //   :last-child {
+    //     border-right: 0;
+    //   }
+    // }
   }
 }
 </style>
