@@ -2,16 +2,23 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+
 // 引入按需加载的element
 import element from './element';
 import 'element-ui/lib/theme-chalk/index.css';
-const locale = require('element-ui/lib/locale/lang/zh-CN');
-Vue.use(element, { locale: locale.default, size: 'mini' })
+Vue.use(element)
+
 // 引入scss
 import "@/styles/index.scss";
 
 // 引入 lodash
 import _ from "lodash";
+
+// 引入svg icon
+import '@/icons';
+
+
 
 // 引入全局组件
 import { myRow } from '@/components';

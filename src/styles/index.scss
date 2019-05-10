@@ -6,7 +6,7 @@
 html,body,#app {
     height: 100%;
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     color: #303133;
 }
 
@@ -24,4 +24,16 @@ div{
 
 li{
     list-style: none;
+}
+
+img{
+    display: block;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.text-right {
+    text-align: right;
 }

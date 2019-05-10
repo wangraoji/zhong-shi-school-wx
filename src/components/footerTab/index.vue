@@ -8,7 +8,11 @@
         :class="{show:tab.show,last:inx===tabs.length-1,first:inx===0}"
       >
         <ul>
-          <li v-for="(child,inx1) of tab.children" :key="inx1">{{ child.name }}</li>
+          <li
+            v-for="(child,inx1) of tab.children"
+            :key="inx1"
+            @click="toPath(child)"
+          >{{ child.name }}</li>
         </ul>
       </div>
     </el-col>
@@ -29,11 +33,11 @@ export default class FooterTab extends Vue {
       children: [
         {
           name: "行业动态",
-          tag: ""
+          path: "/industryNews"
         },
         {
           name: "独家观点",
-          tag: ""
+          path: "/exclusiveView"
         }
       ]
     },
@@ -44,11 +48,11 @@ export default class FooterTab extends Vue {
       children: [
         {
           name: "经营课程",
-          tag: ""
+          path: "/eliteCourse"
         },
         {
           name: "读书会",
-          tag: ""
+          path: "/bookClub"
         }
       ]
     },
@@ -59,11 +63,11 @@ export default class FooterTab extends Vue {
       children: [
         {
           name: "课程报名",
-          tag: ""
+          path: "/courseReg"
         },
         {
           name: "联系方式",
-          tag: ""
+          path: "/contactInfo"
         }
       ]
     },
@@ -74,7 +78,7 @@ export default class FooterTab extends Vue {
       children: [
         {
           name: "会员信息",
-          tag: ""
+          path: "/vipInfo"
         }
       ]
     }
@@ -92,6 +96,14 @@ export default class FooterTab extends Vue {
     this.tabs.forEach((el: any) => {
       el.show = false;
     });
+  }
+  toPath(tab: any) {
+    if (tab.path && tab.path !== "") {
+      this.$router.push({ path: tab.path });
+    }
+    if (tab.url && tab.url !== "") {
+      window.open(tab.url, "_blank");
+    }
   }
 }
 </script>
