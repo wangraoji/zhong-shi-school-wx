@@ -1,5 +1,5 @@
-# zhong-shi-school
-zhong-shi-school
+# zhong-shi-school-wx
+zhong-shi-school-wx
 
 ### 开发文档
 home --- 首页<br />
