@@ -26,3 +26,9 @@ bookClub<br />
 <br />
 newsDetail<br />
 viewDetail<br />
+
+### mock对接
+精英课程 列表 --- 加3个字段 tag  info  startTime 
+<br /> 
+课程报名 列表
+<br />

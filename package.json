@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.124",
+    "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.8.2",
     "svg-sprite-loader": "^4.1.6",

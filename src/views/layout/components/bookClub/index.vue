@@ -2,86 +2,28 @@
   <div class="bookClub">
     <div v-for="(item,i) of bookClubData" :key="i" class="bookClubBox" @click="toPath(item)">
       <el-row class="b-title mb-10">{{ item.title }}</el-row>
-      <el-row class="b-content mb-10">{{ item.content }}</el-row>
-      <el-row :gutter="10">
-        <el-col :span="8" v-for="(img,i1) of item.imgSrcs" :key="i1">
-          <img :src="img.src" alt class="w100 h100">
-        </el-col>
-      </el-row>
+      <el-form ref="form" :model="item" label-position="right" label-width="100px">
+        <el-form-item label="举办方式：">{{ item.kind }}</el-form-item>
+        <el-form-item label="举办时间：">{{ item.stime }}</el-form-item>
+        <el-form-item label="负责人：">{{ item.contact }}</el-form-item>
+        <el-form-item label="志愿者人数：">{{ item.hcount }}</el-form-item>
+        <el-form-item label="听众：">{{ item.lcount }}</el-form-item>
+        <el-form-item label="发布时间：">{{ item.ptime }}</el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { getReadingList } from "@/api/readingApi";
+import _ from "lodash";
 @Component
 export default class BookClub extends Vue {
   bookClubData: any = [
     {
       title: "全民读书活动之新华书店篇",
-      content:
-        "根据全民读书月和上级部门的要求，慈溪新华书店承办的“好书伴成长”暑期征文活动自活动启动以来，今年已经是第三年了。《好书伴成长----2015-2016年获奖优秀作品集》的成功出版，激发了全市师生活动参与的热情。",
-      imgSrcs: [
-        {
-          src: require("@/assets/d1.jpeg")
-        },
-        {
-          src: require("@/assets/d2.jpeg")
-        },
-        {
-          src: require("@/assets/d3.jpeg")
-        }
-      ],
-      uid: "1"
-    },
-    {
-      title: "全民读书活动之新华书店篇",
-      content:
-        "根据全民读书月和上级部门的要求，慈溪新华书店承办的“好书伴成长”暑期征文活动自活动启动以来，今年已经是第三年了。《好书伴成长----2015-2016年获奖优秀作品集》的成功出版，激发了全市师生活动参与的热情。",
-      imgSrcs: [
-        {
-          src: require("@/assets/d1.jpeg")
-        },
-        {
-          src: require("@/assets/d2.jpeg")
-        },
-        {
-          src: require("@/assets/d3.jpeg")
-        }
-      ],
-      uid: "1"
-    },
-    {
-      title: "全民读书活动之新华书店篇",
-      content:
-        "根据全民读书月和上级部门的要求，慈溪新华书店承办的“好书伴成长”暑期征文活动自活动启动以来，今年已经是第三年了。《好书伴成长----2015-2016年获奖优秀作品集》的成功出版，激发了全市师生活动参与的热情。",
-      imgSrcs: [
-        {
-          src: require("@/assets/d1.jpeg")
-        },
-        {
-          src: require("@/assets/d2.jpeg")
-        },
-        {
-          src: require("@/assets/d3.jpeg")
-        }
-      ],
-      uid: "1"
-    },
-    {
-      title: "全民读书活动之新华书店篇",
-      content:
-        "根据全民读书月和上级部门的要求，慈溪新华书店承办的“好书伴成长”暑期征文活动自活动启动以来，今年已经是第三年了。《好书伴成长----2015-2016年获奖优秀作品集》的成功出版，激发了全市师生活动参与的热情。",
-      imgSrcs: [
-        {
-          src: require("@/assets/d1.jpeg")
-        },
-        {
-          src: require("@/assets/d2.jpeg")
-        },
-        {
-          src: require("@/assets/d3.jpeg")
-        }
-      ],
+      stime: "2019-06-01",
+      kind: "线上",
       uid: "1"
     }
   ];
@@ -91,6 +33,14 @@ export default class BookClub extends Vue {
       name: "bookClubDetail",
       query: { uid: item.uid }
     });
+  }
+  async getReadingListFn() {
+    let res: any = await getReadingList();
+    if (res.ok) {
+      this.bookClubData = _.cloneDeep(res.data);
+    } else {
+      alert(res.msg);
+    }
   }
 }
 </script>
@@ -104,14 +54,9 @@ export default class BookClub extends Vue {
     .b-title {
       font-size: 18px;
     }
-    .b-content {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
+  }
+  /deep/ .el-form-item {
+    margin-bottom: 0px !important;
   }
 }
 </style>

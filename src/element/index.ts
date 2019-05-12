@@ -1,10 +1,13 @@
 import {
-    Row, Col, Dropdown,
-    DropdownMenu,
-    DropdownItem,
-    Popover,
-    Button,
-    Input,
+    Row, Col,
+    Dialog,
+    Loading,
+    Tabs,TabPane,
+    Input, Button,
+    Form, FormItem,
+    Radio,RadioGroup,
+    Table, TableColumn,
+
 } from 'element-ui'
 const locale = require('element-ui/lib/locale/lang/zh-CN');
 const element = {
@@ -12,12 +15,18 @@ const element = {
         Vue.prototype.$ELEMENT = { size: 'mini', locale: locale.default };
         Vue.use(Row)
         Vue.use(Col)
-        Vue.use(Dropdown)
-        Vue.use(DropdownMenu)
-        Vue.use(DropdownItem)
-        Vue.use(Popover)
+        Vue.use(Dialog)
+        Vue.use(Loading)
         Vue.use(Button)
+        Vue.use(Tabs)
+        Vue.use(TabPane)
         Vue.use(Input)
+        Vue.use(Form)
+        Vue.use(FormItem)
+        Vue.use(Radio)
+        Vue.use(RadioGroup)
+        Vue.use(Table)
+        Vue.use(TableColumn)
     }
 }
 export default element

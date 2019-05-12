@@ -29,11 +29,29 @@ li{
 img{
     display: block;
 }
+.mb-5 {
+    margin-bottom: 5px;
+}
 
 .mb-10 {
     margin-bottom: 10px;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .text-right {
     text-align: right;
+}
+
+.el-dialog__body {
+    padding: 10px!important;
+}
+
+
+.c-img {
+    img {
+      border-radius: 3px;
+    }
 }

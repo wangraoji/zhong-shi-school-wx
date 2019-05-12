@@ -75,11 +75,6 @@ export default new Router({
           component: () => import('@/views/details/components/courseDetail/index.vue'),
         },
         {
-          path: '/regDetail',
-          name: 'regDetail',
-          component: () => import('@/views/details/components/regDetail/index.vue'),
-        },
-        {
           path: '/bookClubDetail',
           name: 'bookClubDetail',
           component: () => import('@/views/details/components/bookClubDetail/index.vue'),
