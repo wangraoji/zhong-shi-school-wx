@@ -28,7 +28,8 @@ newsDetail<br />
 viewDetail<br />
 
 ### mock对接
-精英课程 列表 --- 加3个字段 tag  info  startTime 
-<br /> 
-课程报名 列表
+完成 新闻/动态 列表+详情
+<br/>
+完成 读书会 列表+详情
 <br />
+完成报名 add

@@ -26,10 +26,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { getSubjectsList } from "@/api/subjectsApi";
-import _ from 'lodash';
+import _ from "lodash";
 @Component
 export default class EliteCourse extends Vue {
-  defaultImg: any = require("@/assets/xueyuan.jpg");
+  log:any;
+  defaultImg: any = require("@/assets/test1.jpg");
   courseData: any = [
     {
       listimg: require("@/assets/test1.jpg"),
@@ -77,16 +78,19 @@ export default class EliteCourse extends Vue {
       uid: "1"
     }
   ];
-
+  mounted() {
+    this.getSubjectsListFn();
+  }
   toPath(item: any) {
     this.$router.push({
       name: "courseDetail",
-      query: { uid: item.uid }
+      query: { id: item.id }
     });
   }
 
   async getSubjectsListFn() {
     let res: any = await getSubjectsList();
+    this.log(res);
     if (res.ok) {
       this.courseData = _.cloneDeep(res.data);
     } else {

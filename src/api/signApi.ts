@@ -9,4 +9,13 @@ const getSignList = () => {
     })
 }
 
-export { getSignList } 
+// 获取报名新增
+const signAdd = (data: any) => {
+    return request({
+        url: api + '/sign/add',
+        method: 'post',
+        data: data,
+    })
+}
+
+export { getSignList,signAdd } 

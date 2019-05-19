@@ -72,9 +72,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { getSubjects } from "@/api/subjectsApi";
+import { signAdd } from "@/api/signApi";
 import _ from "lodash";
 @Component
 export default class CourseDetail extends Vue {
+  log: any;
   defaultImg: any = require("@/assets/courseDetail.jpg");
   item: any = {
     listimg: require("@/assets/courseDetail.jpg"),
@@ -129,19 +131,23 @@ export default class CourseDetail extends Vue {
     }
   }
   mounted() {
-    console.log(this.$route.query.uid);
-    console.log(this.$route.query.reg);
     if (this.$route.query.reg && !!this.$route.query.reg) {
       this.dialogCfg.isShow = true;
     }
+    this.getSubjectsFn(this.$route.query.id);
   }
-  // 登陆
+  // 报名
   submitForm(formName: any) {
     let tempForm: any = this.$refs[formName];
-    tempForm.validate((valid: any) => {
+    tempForm.validate(async (valid: any) => {
       if (valid) {
-        // this.dialogLoading = true;
-        console.log(this.dialogCfg.data)
+        this.dialogLoading = true;
+        let res: any = await signAdd(this.dialogCfg.data);
+        if (res.ok) {
+          alert(`报名成功`);
+        } else {
+          alert(res.msg);
+        }
       } else {
         return false;
       }
@@ -154,8 +160,9 @@ export default class CourseDetail extends Vue {
     }
   }
 
-  async getSubjectsFn() {
-    let res: any = await getSubjects(this.$route.query.uid);
+  async getSubjectsFn(id: any) {
+    let res: any = await getSubjects(id);
+    this.log(res);
     if (res.ok) {
       this.item = _.cloneDeep(res.data);
     } else {

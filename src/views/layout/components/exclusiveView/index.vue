@@ -1,16 +1,18 @@
 <template>
   <div class="exclusiveView">
     <el-row v-for="(item,inx) of iData" :key="inx">
-      <el-row class="i-t">
-        <span class="i-t-h">{{ item.titlelh}}</span>
-        - {{ item.titlelast }}
-      </el-row>
-      <div v-for="(children,inx1) of item.children" :key="inx1" @click="toPath(children)">
+      <el-row class="i-t">{{ item.title}}</el-row>
+      <div @click="toPath(item)">
         <el-row class="i-r mb-10" :gutter="10">
           <el-col :span="10" class="i-img">
-            <img :src="children.imgSrc" alt="1">
+            <!-- 如果img 存在 并且 不等于 “” 读传入 -->
+            <img :src="item.listimg" class="w100" v-if="item.listimg && item.listimg !== ''">
+            <!-- 如果img 存在 且 等于 “” 读默认 -->
+            <img :src="defaultImg" class="w100" v-if="item.listimg && item.listimg === ''">
+            <!-- 如果img 不存在 直接读默认 -->
+            <img :src="defaultImg" class="w100" v-if="!item.listimg">
           </el-col>
-          <el-col :span="14" class="i-cont">{{ children.content }}</el-col>
+          <el-col :span="14" class="i-cont">{{ item.content }}</el-col>
         </el-row>
       </div>
     </el-row>
@@ -18,62 +20,26 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { getContentsList } from "@/api/contentsApi";
 @Component
 export default class ExclusiveView extends Vue {
   log: any;
-  iData: any = [
-    {
-      titlelh: "教育",
-      titlelast: "观点",
-      children: [
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "1"
-        },
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "2"
-        },
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "3"
-        }
-      ]
-    },
-    {
-      titlelh: "XX",
-      titlelast: "观点",
-      children: [
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "1"
-        },
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "2"
-        },
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "3"
-        },
-        {
-          imgSrc: require("@/assets/test.jpg"),
-          content: "孙女眼中的人民教育家于漪:人的高贵不在于头衔,而在于灵魂",
-          uid: "4"
-        }
-      ]
+  defaultImg: any = require("@/assets/test.jpg");
+  iData: any = [];
+  mounted() {
+    this.getContentsListFn();
+  }
+  async getContentsListFn() {
+    let res: any = await getContentsList();
+    if (res.ok) {
+      this.iData = res.data;
+    } else {
     }
-  ];
+  }
   toPath(item: any) {
     this.$router.push({
       name: "viewDetail",
-      query: { uid: item.uid }
+      query: { id: item.id }
     });
   }
 }

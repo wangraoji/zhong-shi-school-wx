@@ -10,12 +10,12 @@ const getSubjectsList = () => {
 }
 
 // 获取课程详情
-const getSubjects = (int: any) => {
+const getSubjects = (id: any) => {
     return request({
-        url: api + '/subjects/list',
+        url: api + '/subjects/get',
         method: 'get',
         params: {
-            int: int,
+            id: id,
         }
     })
 }

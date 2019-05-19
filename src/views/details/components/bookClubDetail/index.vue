@@ -6,6 +6,13 @@
       <el-form-item label="作者　　：">{{ item.anthor }}</el-form-item>
       <el-form-item label="负责人　：">{{ item.contact }}</el-form-item>
       <el-form-item label="举办时间：">{{ item.stime }}</el-form-item>
+      <el-form-item label="举办方式：">
+        <span
+          v-if="item.byinter.do && item.byoutline.do"
+        >{{ item.byinter.label + ' + ' + item.byoutline.label}}</span>
+        <span v-if="item.byinter.do && !item.byoutline.do">{{ item.byinter.label }}</span>
+        <span v-if="!item.byinter.do && item.byoutline.do">{{ item.byoutline.label }}</span>
+      </el-form-item>
       <el-form-item label="发布时间：">{{ item.ptime }}</el-form-item>
     </el-form>
     <el-row class="mb-5">
@@ -53,6 +60,7 @@ import { getReading } from "@/api/readingApi";
 import _ from "lodash";
 @Component
 export default class BookClubDetail extends Vue {
+  log: any;
   item: any = {
     title: "读书会详情",
     stitle: "子标题",
@@ -60,13 +68,15 @@ export default class BookClubDetail extends Vue {
     anthor: "王小虎",
     contact: "王小虎",
     stime: "2019-07-01",
-    ptime: "2019/9/9 00:00:00"
+    ptime: "2019/9/9 00:00:00",
+    byinter:{},
+    byoutline:{},
   };
   mounted() {
-    console.log(this.$route.query.uid);
+    this.getReadingFn(this.$route.query.id);
   }
-  async getReadingFn() {
-    let res: any = await getReading(this.item.id);
+  async getReadingFn(id: any) {
+    let res: any = await getReading(id);
     if (res.ok) {
       this.item = _.cloneDeep(res.data);
     } else {

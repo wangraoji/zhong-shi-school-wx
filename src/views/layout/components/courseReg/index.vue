@@ -28,6 +28,7 @@ import { getSignList } from "@/api/signApi";
 import _ from "lodash";
 @Component
 export default class CourseReg extends Vue {
+  log:any;
   defaultImg: any = require("@/assets/xueyuan.jpg");
   courseData: any = [
     {
@@ -74,12 +75,14 @@ export default class CourseReg extends Vue {
   toPath(item: any) {
     this.$router.push({
       name: "courseDetail",
-      query: { uid: item.uid, reg: "true" }
+      query: { id: item.id, reg: "true" }
     });
   }
-
+  mounted(){
+    this.getSignListFn();
+  }
   async getSignListFn() {
-    let res: any = getSignList();
+    let res: any =await getSignList();
     if (res.ok) {
       this.courseData = _.cloneDeep(res.data);
     } else {
