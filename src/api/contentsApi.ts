@@ -18,6 +18,6 @@ const getContents = (id: any) => {
             id: id,
         }
     })
-}
+} 
 
 export { getContentsList, getContents } 
