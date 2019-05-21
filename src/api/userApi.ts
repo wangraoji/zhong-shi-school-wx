@@ -37,5 +37,13 @@ const editPwd = (data: any) => {
     })
 }
 
-
-export { login, singup, editPwd, editInfo } 
+// 注册邮箱
+// user/regmail
+const userRegmail = (data: any) => {
+    return request({
+        url: api + '/user/regmail',
+        method: 'post',
+        data: data
+    })
+}
+export { login, singup, editPwd, editInfo, userRegmail } 

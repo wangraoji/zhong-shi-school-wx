@@ -86,7 +86,7 @@
               <el-input v-model="dialogCfg.data.mail" placeholder="请输入常用邮箱" auto-complete="off"></el-input>
             </el-row>
             <el-row>
-              <el-button class="w100">点击发送邮箱验证码</el-button>
+              <el-button class="w100" @click="userRegmailFn">点击发送邮箱验证码</el-button>
             </el-row>
           </el-form-item>
           <el-form-item label="验证码" prop="vcode">
@@ -143,7 +143,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Message } from "element-ui";
-import { login, singup, editPwd, editInfo } from "@/api/userApi";
+import { login, singup, editPwd, editInfo, userRegmail } from "@/api/userApi";
 @Component
 export default class VipInfo extends Vue {
   log: any;
@@ -294,6 +294,15 @@ export default class VipInfo extends Vue {
       callback();
     }
   }
+  // 发送邮箱验证码
+  async userRegmailFn() {
+    let re = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+    let value = this.dialogCfg.data.mail;
+    if (re.test(value)) {
+      let res: any = await userRegmail(value);
+      console.log(res);
+    }
+  }
 
   // 登陆
   submitForm(formName: any) {
@@ -303,8 +312,7 @@ export default class VipInfo extends Vue {
         this.dialogLoading = true;
         // 注册
         if (this.dialogCfg.action === "singup") {
-          this.loginFn(this.dialogCfg.data);
-          alert(`注册`);
+          this.singupFn(this.dialogCfg.data);
         }
         // 登录
         else if (this.dialogCfg.action === "login") {
@@ -332,6 +340,7 @@ export default class VipInfo extends Vue {
     let tempForm: any = this.$refs[formName];
     if (tempForm) {
       tempForm.resetFields();
+      this.dialogCfg.data = {};
     }
   }
   openDialog(action: any) {
@@ -350,16 +359,25 @@ export default class VipInfo extends Vue {
 
   // 登录请求
   async loginFn(param: any) {
-    // let res: any = login(param);
-    this.log(param);
+    let res: any = await login(param);
+    console.log(res);
+    // this.log(`登陆`);
+    // this.log(param);
     this.msgFn(`登录成功`, "success");
   }
   // 注册请求
   async singupFn(param: any) {
     this.$delete(param, "checkpwd");
-    // let res: any = singup(param);
-    this.log(param);
-    this.msgFn(`注册成功`, "success");
+    let res: any = await singup(param);
+    if (res.ok) {
+    } else {
+      this.message({
+        message: res.msg,
+        type: "error",
+        duration: "2000"
+      });
+      this.dialogLoading = false;
+    }
   }
   // 修改密码请求
   async editPwdFn(param: any) {
@@ -378,6 +396,7 @@ export default class VipInfo extends Vue {
   }
 
   msgFn(msg: any, type: any) {
+    this.log(msg);
     setTimeout(() => {
       this.dialogLoading = false;
       this.dialogCfg.isShow = false;

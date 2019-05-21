@@ -3,7 +3,13 @@
     <div v-for="(item,i) of bookClubData" :key="i" class="bookClubBox" @click="toPath(item)">
       <el-row class="b-title mb-10">{{ item.title }}</el-row>
       <el-form ref="form" :model="item" label-position="right" label-width="100px">
-        <el-form-item label="举办方式：">{{ item.kind }}</el-form-item>
+        <el-form-item label="举办方式：">
+          <span
+            v-if="item.byinter.do && item.byoutline.do"
+          >{{ item.byinter.label + ' + ' + item.byoutline.label}}</span>
+          <span v-if="item.byinter.do && !item.byoutline.do">{{ item.byinter.label }}</span>
+          <span v-if="!item.byinter.do && item.byoutline.do">{{ item.byoutline.label }}</span>
+        </el-form-item>
         <el-form-item label="举办时间：">{{ item.stime }}</el-form-item>
         <el-form-item label="负责人：">{{ item.contact }}</el-form-item>
         <el-form-item label="志愿者人数：">{{ item.hcount }}</el-form-item>
@@ -19,27 +25,20 @@ import { getReadingList } from "@/api/readingApi";
 import _ from "lodash";
 @Component
 export default class BookClub extends Vue {
+  log: any;
   bookClubData: any = [
-    {
-      title: "全民读书活动之新华书店篇",
-      stime: "2019-06-01",
-      kind: "线上",
-      uid: "1"
-    }
   ];
   mounted() {
-    console.log(1);
     this.getReadingListFn();
   }
   toPath(item: any) {
     this.$router.push({
       name: "bookClubDetail",
-      query: { uid: item.uid }
+      query: { id: item.id }
     });
   }
   async getReadingListFn() {
     let res: any = await getReadingList();
-    console.log(res);
     if (res.ok) {
       this.bookClubData = _.cloneDeep(res.data);
     } else {
