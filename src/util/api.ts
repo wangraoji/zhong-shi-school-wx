@@ -1,3 +1,3 @@
-let api = "api";
-// let apiUrl = "xxx.xxx.xxx.xxx"
+// let api = "api";
+let api = "https://47.111.5.41:81"
 export default api;

@@ -27,7 +27,10 @@ export default class BookClub extends Vue {
       uid: "1"
     }
   ];
-
+  mounted() {
+    console.log(1);
+    this.getReadingListFn();
+  }
   toPath(item: any) {
     this.$router.push({
       name: "bookClubDetail",
@@ -36,6 +39,7 @@ export default class BookClub extends Vue {
   }
   async getReadingListFn() {
     let res: any = await getReadingList();
+    console.log(res);
     if (res.ok) {
       this.bookClubData = _.cloneDeep(res.data);
     } else {
