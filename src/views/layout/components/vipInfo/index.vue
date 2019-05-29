@@ -81,14 +81,14 @@
               auto-complete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="常用邮箱" prop="mail">
+          <!-- <el-form-item label="常用邮箱" prop="mail">
             <el-row class="mb-5">
               <el-input v-model="dialogCfg.data.mail" placeholder="请输入常用邮箱" auto-complete="off"></el-input>
             </el-row>
             <el-row>
               <el-button class="w100" @click="userRegmailFn">点击发送邮箱验证码</el-button>
             </el-row>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="验证码" prop="vcode">
             <el-input v-model="dialogCfg.data.vcode" placeholder="请输入验证码" auto-complete="off"></el-input>
           </el-form-item>
@@ -178,7 +178,7 @@ export default class VipInfo extends Vue {
     checkpwd: [
       { required: true, validator: this.validatepwd2, trigger: "blur" }
     ],
-    mail: [{ required: true, validator: this.validateMail, trigger: "blur" }],
+    // mail: [{ required: true, validator: this.validateMail, trigger: "blur" }],
     vcode: [{ required: true, validator: this.validateVcode, trigger: "blur" }]
   };
   dialogLoading: any = false;
