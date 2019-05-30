@@ -38,12 +38,12 @@ const editPwd = (data: any) => {
 }
 
 // 注册邮箱
-// user/regmail
+// http://localhost:54246//api/user/regis/regmail?mail=491127203@qq.com
+
 const userRegmail = (data: any) => {
     return request({
-        url: api + '/user/regmail',
+        url: "http://47.111.5.41:54246/api" + '/user/regis/regmail?mail=' + data,
         method: 'post',
-        data: data
     })
 }
 export { login, singup, editPwd, editInfo, userRegmail } 
